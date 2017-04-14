@@ -56,6 +56,7 @@ angle22=math.pi/2
 angle32=math.pi*3/2
 angle42=math.pi*2
 
+# On créé les deux rectangles que l'on utilisera plus tard
 recttw1 =pygame.Rect(150,-850,150,150)
 recttw2 = pygame.Rect(300,-850,150,150)
 
@@ -93,19 +94,20 @@ line1=pygame.draw.line(fenetre,red,CoorT1,CoorT2,5)
 line2=pygame.draw.line(fenetre,jaune,CoorT1,CoorT3,5)
 line3=pygame.draw.line(fenetre,bleu,CoorT3,CoorT2,5)
 
-rectObstacle1 = pygame.Rect(line1)
 #On assigne au hasard une couleur au projectile
 couleurProjectile = random.choice(seq)
-##couleurProjecilte = Couleur1
+#On créé la variable t qui va nous servir à faire tourer le rectangle
 t=math.pi/4
 def rectangle():
     global fenetre,red,bleu,jaune,violet,CoorC1,CoorC2,CoorC3,CoorC4,r,a,b,t,x
     x=1
     for x in range(1,1000):
-         pygame.draw.line(fenetre,red,CoorC1,CoorC2,5)
+        # On déssine 4 segments de différentes couleurs
+         pygame.draw.line(fenetre,red,CoorC1,CoorC2,5) 
          pygame.draw.line(fenetre,jaune,CoorC1,CoorC4,5)
          pygame.draw.line(fenetre,bleu,CoorC2,CoorC3,5)
          pygame.draw.line(fenetre,violet,CoorC3,CoorC4,5)
+        # On utilise cette formule qui nous permet de faire tourner le rectangle
          CoorC4 = [a + r*(math.cos(t)),bC + r*(math.sin(t))]
          CoorC3 = [a - r*(math.sin(t)),bC + r*(math.cos(t))]
          CoorC2 = [a - r*(math.cos(t)),bC - r*(math.sin(t))]
@@ -118,10 +120,11 @@ def triangle():
     x=1
 
     for x in range(1,10):
-
+        # On créé 3 segments qui vont former un triangle 
          line1=pygame.draw.line(fenetre,red,CoorT1,CoorT2,5)
          line2=pygame.draw.line(fenetre,jaune,CoorT1,CoorT3,5)
          line3=pygame.draw.line(fenetre,bleu,CoorT3,CoorT2,5)
+            # On utilise de nouveau une formule mathématique pour faire tourner le triangle
          CoorT3 = [a + r*(math.cos(t)),bT + r*(math.sin(t))]
          CoorT2 = [a + r*(math.cos(2*math.pi/3 + t )),bT + r*(math.sin(2*math.pi/3 + t))]
          CoorT1 = [a + r*(math.cos(-2*math.pi/3 + t)),bT + r*(math.sin(-2*math.pi/3 + t))]
@@ -131,10 +134,12 @@ def triangle():
 def cercle():
     global angle0, angle, angle1, angle2,angle3,angle4,angle5,rect
     for x in range(0,100):
+        # On déssine 4 arc de cercle de couleurs différentes d
         arc1 = pygame.draw.arc(fenetre, red , rect, angle0 , angle2,5)
         arc2 = pygame.draw.arc(fenetre, jaune, rect, angle2 , angle,5)
         arc3 = pygame.draw.arc(fenetre, bleu, rect, angle , angle3,5)
         arc4 = pygame.draw.arc(fenetre, violet, rect, angle3,angle4,5)
+        # On fait évoluer les angles des arcs de cercles en  boucle
         angle0 = angle0 - angle5
         angle = angle - angle5
         angle2 = angle2 - angle5
@@ -145,6 +150,7 @@ def cercle():
 def twincircles():
     global angle5,angle01,angle1,angle21,angle31,angle41,angle02,angle221,angle22,angle32,angle42,recttw1,recttw2
     for x in range (0,100) :
+        #On dessine les arcs de cercles des deux cercles
         arc11 = pygame.draw.arc(fenetre, red , recttw1, angle01 , angle21,10)
         arc21 = pygame.draw.arc(fenetre, jaune, recttw1, angle21 , angle1,10)
         arc31 = pygame.draw.arc(fenetre, bleu, recttw1, angle1 , angle31,10)
@@ -154,6 +160,7 @@ def twincircles():
         arc22 = pygame.draw.arc(fenetre, red, recttw2, angle22 , angle221,10)
         arc32 = pygame.draw.arc(fenetre, violet , recttw2, angle221 , angle32,10)
         arc42 = pygame.draw.arc(fenetre, bleu , recttw2, angle32,angle42,10)
+        # On fait évoluer les angles des arcs de la même manière en même temps
 
         angle01 = angle01 - angle5
         angle1 = angle1 - angle5
@@ -171,6 +178,7 @@ def twincircles():
 def trait():
     global x1,x2,x3,x4,x11,x22,x33,x44,Yline
     for x in range(0,100):
+        # On dessine 4 segments de couleurs différentes
         seg1 = pygame.draw.line(fenetre, red, (x1, Yline), (x11, Yline), 5)
         seg2 = pygame.draw.line(fenetre, bleu, (x2, Yline), (x22, Yline), 5)
         seg3 = pygame.draw.line(fenetre, jaune, (x3, Yline), (x33, Yline), 5)
@@ -219,18 +227,16 @@ def trait():
             seg1 = pygame.draw.line(fenetre, red, (x1, Yline), (x11, Yline), 5)
 
 
-##def carre():
-
-
-
 # Fonction en charge de dessiner tous les éléments sur notre fenêtre graphique.
 # Cette fonction sera appelée depuis notre boucle infinie
 def dessiner():
     global fenetre, projectile, angle0, angle, angle1, angle2,angle3,angle4,angle5,red,bleu,jaune,violet,couleurProjectile,arc1,arc2,arc3,arc4,rect,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline
     # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
     fenetre.fill( (0,0,0) )
+    # On dessine le projectile
     if projectile != (-1, -1):
         pygame.draw.circle(fenetre, couleurProjectile , projectile, 7) # On dessine le projectile (un simple petit cercle)
+    #On lance les différetes obstacles dans la fonction dessiner
     rectangle()
     triangle()
     cercle()
@@ -253,10 +259,12 @@ def gererClavierEtSouris():
         vitesse = 1
     if touchesPressees[pygame.K_SPACE] == True and projectile[1] <= 400: #Ce if gère le défilement du terrain ( des obstacles ) en fonction de la position du projectile
         projectile = (projectile[0], 400)
+        # On fait descendre les obstacles au fur et à mesure
         bC = bC + 7
         bT = bT + 7
         rect[1] = rect[1] + 7
         Yline = Yline + 7
+    #Une fois qu'ils ont disparu en dessou de l'écran on les remets en dehors de l'écran ( au dessus ) pour qu'ils puissent ré appara^^itre
     if bC > 1000 :
         bC = -500
     if bT > 1000 :
@@ -285,8 +293,11 @@ while continuer==1:
    # On gère la fin de la partie, la détection du passage de l'obstacle et le changement de couleur
     if projectile[1] > 800:
         continuer=0
+    # On détecte si le projectile passe par un obstacle qui n'est pas de sa couleur
     if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
         continuer=0
+    #On change de couleur quand le projectile dépasse le centre d'un obstacle
+    # La couleur est fixe pour le moment mais un tirage au hasard est prévu
     chgmt=0
     if bC>projectile[1] and chgmt==0:
         couleurProjectile=bleu
