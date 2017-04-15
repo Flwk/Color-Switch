@@ -222,19 +222,22 @@ def trait():
             seg1 = pygame.draw.line(fenetre, red, (x1, Yline), (x11, Yline), 5)
 
 
-##def carre():
+chgmt=0
 
 
 
 # Fonction en charge de dessiner tous les éléments sur notre fenêtre graphique.
 # Cette fonction sera appelée depuis notre boucle infinie
 def dessiner():
-    global fenetre, projectile, angle0, angle, angle1, angle2,angle3,angle4,angle5,red,bleu,jaune,violet,couleurProjectile,arc1,arc2,arc3,arc4,rect,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline
+    global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt
     # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
     fenetre.fill( (0,0,0) )
-    fenetre.blit(imagescore,(a-13,bT))
-    fenetre.blit(imagescore,(a-13,bC))
-    fenetre.blit(imagescore,(projectile[0]-15,Yline-50))
+    if chgmt==0:
+      fenetre.blit(imagescore,(a-13,bC))
+    if chgmt==1:
+      fenetre.blit(imagescore,(a-13,bT))
+    if chgmt==2:
+      fenetre.blit(imagescore,(projectile[0]-15,Yline-50))
     if projectile != (-1, -1):
         pygame.draw.circle(fenetre, couleurProjectile , projectile, 7) # On dessine le projectile (un simple petit cercle)
     rectangle()
@@ -297,16 +300,17 @@ while continuer==1:
 ##        continuer=0
 
     rectObstacle1 = pygame.Rect(a-50,bC,100,50)
-    if rectObstacle1.collidepoint(projectile):
+    if  chgmt==0 and rectObstacle1.collidepoint(projectile):
         couleurProjectile=random.choice(seq)
+        chgmt=1
     rectObstacle2 = pygame.Rect(a-50,bT,100,50)
-    if rectObstacle2.collidepoint(projectile):
+    if  chgmt==1 and rectObstacle2.collidepoint(projectile):
         couleurProjectile=random.choice(seq)
         chgmt=2
     rectObstacle3 = pygame.Rect(300,Yline-40,100,50)
-    if rectObstacle3.collidepoint(projectile):
+    if chgmt==2 and rectObstacle3.collidepoint(projectile):
         couleurProjectile=random.choice(seq)
-
+        chgmt=3
 
 # A la fin, lorsque l'on sortira de la boucle, on demandera à Pygame de quitter proprement
 pygame.quit()
