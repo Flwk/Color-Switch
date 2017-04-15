@@ -83,7 +83,7 @@ violet=(121, 28, 248)
 seq=[]
 seq.append(red)
 seq.append(jaune)
-seq.append(red)
+seq.append(violet)
 seq.append(bleu)
 
 
@@ -299,6 +299,7 @@ while continuer==1:
 ##    if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
 ##        continuer=0
 
+#Détection de la collision et changement de la couleur
     rectObstacle1 = pygame.Rect(a-50,bC,100,50)
     if  chgmt==0 and rectObstacle1.collidepoint(projectile):
         couleurProjectile=random.choice(seq)
