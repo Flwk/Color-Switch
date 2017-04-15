@@ -1,4 +1,4 @@
-import pygame, math, random
+﻿import pygame, math, random
 
 pygame.init() # initialisation du module "pygame"
 
