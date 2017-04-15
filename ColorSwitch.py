@@ -306,7 +306,7 @@ while continuer==1:
         chgmt=1
     rectObstacle2 = pygame.Rect(a-50,bT,100,50)
     if  chgmt==1 and rectObstacle2.collidepoint(projectile):
-        couleurProjectile=random.choice(seq)
+        couleurProjectile=random.choice((red,jaune,bleu))
         chgmt=2
     rectObstacle3 = pygame.Rect(300,Yline-40,100,50)
     if chgmt==2 and rectObstacle3.collidepoint(projectile):
