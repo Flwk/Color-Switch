@@ -86,7 +86,7 @@ seq.append(jaune)
 seq.append(red)
 seq.append(bleu)
 
-rectObstacle1 = pygame.Rect(a,bT,25,25)
+
 #On assigne au hasard une couleur au projectile
 couleurProjectile = random.choice(seq)
 ##couleurProjecilte = Couleur1
@@ -241,7 +241,6 @@ def dessiner():
     triangle()
     cercle()
     trait()
-##    infini()
     pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières opérations de dessin
 
 
@@ -296,19 +295,17 @@ while continuer==1:
         continuer=0
 ##    if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
 ##        continuer=0
-    chgmt=0
 
+    rectObstacle1 = pygame.Rect(a-50,bC,100,50)
     if rectObstacle1.collidepoint(projectile):
-        couleurProjectile=red
-        chgmt=1
-
-    if chgmt==1 and bT>projectile[1]:
-        couleurProjectile=bleu
+        couleurProjectile=random.choice(seq)
+    rectObstacle2 = pygame.Rect(a-50,bT,100,50)
+    if rectObstacle2.collidepoint(projectile):
+        couleurProjectile=random.choice(seq)
         chgmt=2
-
-    if Yline>projectile[1] and chgmt==2:
-        couleurProjectile=violet
-        print(chgmt)
+    rectObstacle3 = pygame.Rect(300,Yline-40,100,50)
+    if rectObstacle3.collidepoint(projectile):
+        couleurProjectile=random.choice(seq)
 
 
 # A la fin, lorsque l'on sortira de la boucle, on demandera à Pygame de quitter proprement
