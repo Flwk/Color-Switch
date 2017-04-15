@@ -27,9 +27,9 @@ imagescore = pygame.transform.scale(imagescore,(25,25))
 
 #On va créé les coordonné pour le triangle
 zz=-100*(math.sqrt(3)-4)
-CoorT1=(200,400)
-CoorT2=(400,400)
-CoorT3=(300,zz)
+CoorT1=(200,-400)
+CoorT2=(400,-400)
+CoorT3=(300,-zz)
 r=(800/3) - (200*math.sqrt(3)/3)
 a=300
 bT=-400 - (100*math.sqrt(3))/3
@@ -296,8 +296,8 @@ while continuer==1:
    # On gère la fin de la partie, la détection du passage de l'obstacle et le changement de couleur
     if projectile[1] > 800:
         continuer=0
-##    if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
-##        continuer=0
+    if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
+        continuer=0
 
 #Détection de la collision et changement de la couleur
     rectObstacle1 = pygame.Rect(a-50,bC,100,50)
