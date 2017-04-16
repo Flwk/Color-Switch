@@ -232,22 +232,24 @@ def trait():
             seg1 = pygame.draw.line(fenetre, red, (x1, Yline), (x11, Yline), 5)
 
 
-chgmt=0
+chgmtC=0
+chgmtT=0
+chgmtY=0
 
 
 
 # Fonction en charge de dessiner tous les Ã©lÃ©ments sur notre fenÃªtre graphique.
 # Cette fonction sera appelÃ©e depuis notre boucle infinie
 def dessiner():
-    global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt
+    global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmtC,chgmtY,chgmtT
     # On remplit complÃ¨tement notre fenÃªtre avec la couleur noire: (0,0,0)
     fenetre.fill( (0,0,0) )
-    if chgmt==0:
+    if chgmtC==0:
       fenetre.blit(imagescore,(a-13,bC))
-    if chgmt==1:
+    if chgmtT==0:
       fenetre.blit(imagescore,(a-13,bT))
-    if chgmt==2:
-      fenetre.blit(imagescore,(projectile[0]-15,Yline-50))
+    if chgmtY==0:
+      fenetre.blit(imagescore,(projectile[0]-15,Yline-30))
     if projectile != (-1, -1):
         pygame.draw.circle(fenetre, couleurProjectile , projectile, 7) # On dessine le projectile (un simple petit cercle)
     rectangle()
@@ -318,17 +320,24 @@ while continuer==1:
 
 #DÃ©tection de la collision et changement de la couleur
     rectObstacle1 = pygame.Rect(a-50,bC,100,50)
-    if  chgmt==0 and rectObstacle1.collidepoint(projectile):
-        couleurProjectile=random.choice(seq)
-        chgmt=1
+    if  chgmtC==0 and rectObstacle1.collidepoint(projectile):
+        couleurProjectile=random.choice((red,jaune,bleu))
+        chgmtC=1
+    if bC > 800:
+        chgmtC=0
     rectObstacle2 = pygame.Rect(a-50,bT,100,50)
-    if  chgmt==1 and rectObstacle2.collidepoint(projectile):
+    if  chgmtT==0 and rectObstacle2.collidepoint(projectile):
+        couleurProjectile=random.choice((red,jaune,bleu))
+        chgmtT=1
+    if bT > 800:
+        chgmtT=0
+    rectObstacle3 = pygame.Rect(300,Yline-50,100,30)
+    if chgmtY==0 and rectObstacle3.collidepoint(projectile):
         couleurProjectile=random.choice(seq)
-        chgmt=2
-    rectObstacle3 = pygame.Rect(300,Yline-40,100,50)
-    if chgmt==2 and rectObstacle3.collidepoint(projectile):
-        couleurProjectile=random.choice(seq)
-        chgmt=3
+        chgmtY=1
+    if Yline > 800:
+        chgmtY=0
+
 
 # A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
 pygame.quit()
