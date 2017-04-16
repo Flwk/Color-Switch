@@ -281,6 +281,7 @@ def gererClavierEtSouris():
         recttw1[1]= recttw1[1] + 7
         recttw2[1]= recttw2[1] + 7
     if bC > 1000 :
+
         bC = -500
     if bT > 1000 :
         bT = -500
