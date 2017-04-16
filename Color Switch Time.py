@@ -1,12 +1,11 @@
-# Créé par HASSAN, le 15/04/2017 en Python 3.2
-import pygame, math, random
+﻿import pygame, math, random
 
 pygame.init() # initialisation du module "pygame"
 
-fenetre = pygame.display.set_mode( (600,800) ) # Création d'une fenêtre graphique de taille 600x600 pixels
-pygame.display.set_caption("Color Switch") # Définit le titre de la fenêtre
+fenetre = pygame.display.set_mode( (600,800) ) # CrÃ©ation d'une fenÃªtre graphique de taille 600x600 pixels
+pygame.display.set_caption("Color Switch") # DÃ©finit le titre de la fenÃªtre
 
-# On définit les variables qui contiendront les positions des différents éléments (vaisseau, alien, projectile)
+# On dÃ©finit les variables qui contiendront les positions des diffÃ©rents Ã©lÃ©ments (vaisseau, alien, projectile)
 # Chaque position est un couple de valeur '(x,y)'
 positionDepart = (300,525)
 projectile = (300,600)
@@ -17,7 +16,7 @@ vitesse=1
 YlineMT = 700
 
 
-#On va créé les coordonné pour le rectangle
+#On va crÃ©Ã© les coordonnÃ© pour le rectangle
 CoorC1=(-200,-400)
 CoorC2=(-400,-400)
 CoorC3=(-400,-200)
@@ -30,7 +29,7 @@ bT = -1200
 imagescore = pygame.image.load("Roue.png").convert()
 imagescore = pygame.transform.scale(imagescore,(25,25))
 
-#On va créé les coordonné pour le triangle
+#On va crÃ©Ã© les coordonnÃ© pour le triangle
 zz=-100*(math.sqrt(3)-4)
 CoorT1=(200,-400)
 CoorT2=(400,-400)
@@ -66,7 +65,7 @@ recttw1 =pygame.Rect(150,-1250,150,150)
 recttw2 = pygame.Rect(300,-1250,150,150)
 
 
-# On crée les variables pour les positions de segment
+# On crÃ©e les variables pour les positions de segment
 x1 = 1
 x11 = 150
 x2 = 150
@@ -75,16 +74,16 @@ x3 = 300
 x33 = 450
 x4 = 450
 x44 = 600
-Yline = -1300 #ici l'ordonnée variable de l'obstacle pour le défilement de l'écran
+Yline = -1300 #ici l'ordonnÃ©e variable de l'obstacle pour le dÃ©filement de l'Ã©cran
 
-#on créé des variables pour les couleurs
+#on crÃ©Ã© des variables pour les couleurs
 
 red=(255,0,0)
 jaune=(255, 228, 54)
 bleu=(43, 250, 250)
 violet=(121, 28, 248)
 
-#On créé une liste où on ajoutera les couleurs
+#On crÃ©Ã© une liste oÃ¹ on ajoutera les couleurs
 seq=[]
 seq.append(red)
 seq.append(jaune)
@@ -237,11 +236,11 @@ chgmt=0
 
 
 
-# Fonction en charge de dessiner tous les éléments sur notre fenêtre graphique.
-# Cette fonction sera appelée depuis notre boucle infinie
+# Fonction en charge de dessiner tous les Ã©lÃ©ments sur notre fenÃªtre graphique.
+# Cette fonction sera appelÃ©e depuis notre boucle infinie
 def dessiner():
     global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt
-    # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
+    # On remplit complÃ¨tement notre fenÃªtre avec la couleur noire: (0,0,0)
     fenetre.fill( (0,0,0) )
     if chgmt==0:
       fenetre.blit(imagescore,(a-13,bC))
@@ -256,24 +255,24 @@ def dessiner():
     cercle()
     trait()
     modetime()
-    pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières opérations de dessin
+    pygame.display.flip() # Rafraichissement complet de la fenÃªtre avec les derniÃ¨res opÃ©rations de dessin
 
 
 
-# Fonction en charge de gérer les évènements clavier (ou souris)
-# Cette fonction sera appelée depuis notre boucle infinie
+# Fonction en charge de gÃ©rer les Ã©vÃ¨nements clavier (ou souris)
+# Cette fonction sera appelÃ©e depuis notre boucle infinie
 def gererClavierEtSouris():
     global continuer, positionDepart, projectile, vitesse,rect,Yline,bC,bT,recttw1,recttw2,YlineMT
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: # Permet de gérer un clic sur le bouton de fermeture de la fenêtre
+        if event.type == pygame.QUIT: # Permet de gÃ©rer un clic sur le bouton de fermeture de la fenÃªtre
             continuer = 0
-    # Gestion du clavier ainsi que du déplacement du projectile
+    # Gestion du clavier ainsi que du dÃ©placement du projectile
     touchesPressees = pygame.key.get_pressed()
     if touchesPressees[pygame.K_SPACE] == True:
         projectile = (projectile[0], projectile[1] - 7)
         YlineMT = YlineMT  + 6
 
-    if touchesPressees[pygame.K_SPACE] == True and projectile[1] <= 400: #Ce if gère le défilement du terrain ( des obstacles ) en fonction de la position du projectile
+    if touchesPressees[pygame.K_SPACE] == True and projectile[1] <= 400: #Ce if gÃ¨re le dÃ©filement du terrain ( des obstacles ) en fonction de la position du projectile
         projectile = (projectile[0], 400)
         bC = bC + 7
         bT = bT + 7
@@ -296,27 +295,27 @@ def gererClavierEtSouris():
             YlineMT = 800
 
 
-# On crée une nouvelle horloge qui nous permettra de fixer la vitesse de rafraichissement de notre fenêtre
+# On crÃ©e une nouvelle horloge qui nous permettra de fixer la vitesse de rafraichissement de notre fenÃªtre
 clock = pygame.time.Clock()
 
 # La boucle infinie de pygame:
-# On va continuellement dessiner sur la fenêtre, gérer les évènements et calculer certains déplacements
+# On va continuellement dessiner sur la fenÃªtre, gÃ©rer les Ã©vÃ¨nements et calculer certains dÃ©placements
 continuer = 1
 while continuer==1:
     # pygame permet de fixer la vitesse de notre:
-    # ici on déclare 50 tours par secondes soit une animation à 50 images par secondes
+    # ici on dÃ©clare 50 tours par secondes soit une animation Ã  50 images par secondes
     clock.tick(60)
     dessiner()
     gererClavierEtSouris()
 
 
-   # On gère la fin de la partie, la détection   du passage de l'obstacle et le changement de couleur
+   # On gÃ¨re la fin de la partie, la dÃ©tection   du passage de l'obstacle et le changement de couleur
     if projectile[1] > 800:
         continuer=0
     if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
         continuer=0
 
-#Détection de la collision et changement de la couleur
+#DÃ©tection de la collision et changement de la couleur
     rectObstacle1 = pygame.Rect(a-50,bC,100,50)
     if  chgmt==0 and rectObstacle1.collidepoint(projectile):
         couleurProjectile=random.choice(seq)
@@ -330,6 +329,6 @@ while continuer==1:
         couleurProjectile=random.choice(seq)
         chgmt=3
 
-# A la fin, lorsque l'on sortira de la boucle, on demandera à Pygame de quitter proprement
+# A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
 pygame.quit()
 
