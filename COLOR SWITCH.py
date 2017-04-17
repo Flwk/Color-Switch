@@ -84,7 +84,6 @@ while continuer==1:
     timeInit=pygame.time.get_ticks()/1000
 
 
-
 #================================================================================================#
 
 
@@ -419,8 +418,10 @@ while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a cliq
    # On gere la fin de la partie, la detection   du passage de l'obstacle et le changement de couleur
     if projectile[1] > 800:
         continuer=5
+        rebour=pygame.time.get_ticks()/1000
     if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
         continuer=5
+        rebour=pygame.time.get_ticks()/1000
 #Detection de la collision et changement de la couleur
     rectObstacle1 = pygame.Rect(a-50,bC,100,50)
     if  chgmtC==0 and rectObstacle1.collidepoint(projectile): #Si le changement est egale à 0 et que le projectile entre en collsision avec la roue ALORS la couleur est choisi aléatoirement, et le core augmente
@@ -449,11 +450,12 @@ while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a cliq
         chgmtCe=1
     if rect[1]>800:
         chgmtCe=0
+
 #On gère la perte d'une partie
 while continuer==5:
      clock.tick(60)
-     rebour=pygame.time.get_ticks()/1000
-     if rebour > 15: #La page se ferme au bout de 05 secondes
+     rebour1 = rebour - pygame.time.get_ticks()/1000
+     if rebour1 < -10: #La page se ferme au bout de 05 secondes
         continuer=1
      else :
        dessiner()
