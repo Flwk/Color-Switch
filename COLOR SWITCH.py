@@ -443,7 +443,7 @@ while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a cliq
 while continuer==5:
      clock.tick(60)
      rebour=pygame.time.get_ticks()/1000
-     if rebour > 5: #La page se ferme au bout de 05 secondes
+     if rebour > 15: #La page se ferme au bout de 05 secondes
         continuer=1
      else :
        dessiner()
