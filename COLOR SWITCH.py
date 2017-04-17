@@ -148,8 +148,8 @@ angle42=math.pi*2
 
 #On cree ldes deux rectangles pour les twins cercles
 
-recttw1 =pygame.Rect(150,-1250,150,150)
-recttw2 = pygame.Rect(300,-1250,150,150)
+recttw1 =pygame.Rect(150,-1550,150,150)
+recttw2 = pygame.Rect(300,-1550,150,150)
 
 
 # On cree les variables pour les positions de segment
@@ -212,16 +212,6 @@ def  triangle():
          CoorT2 = [a + r*(math.cos(2*math.pi/3 + t )),bT + r*(math.sin(2*math.pi/3 + t))]
          CoorT1 = [a + r*(math.cos(-2*math.pi/3 + t)),bT + r*(math.sin(-2*math.pi/3 + t))]
          t = t - math.pi/400000
-
-CoordInf=(400,400)
-teta=math.pi/1000
-def infini():
-        global CoordInf,teta
-        for x in range(1,100):
-           pygame.draw.circle(fenetre, red , CoordInf, 7)
-           CoordInf= ((pow(math.cos(teta),2)  * math.cos(math.pi/4)),(pow(math.cos(teta),2)  * math.sin(math.pi/4)))
-           teta = teta + math.pi/6000
-
 
 #On cree la fonction cercle qui va afficher le cercle et le faire tourenr
 def cercle():
@@ -357,6 +347,7 @@ def dessiner():
         triangle()
         cercle()
         trait()
+##        twincircles() # Fais beaucoup ralentire le jeu
         if continuer==4: #On gère le mode time
             modetime()
             time=pygame.time.get_ticks()/1000 - timeInit #On calcule le temps qu'il s'est écoulé entre le lancement du jeux et le lancement du mode time
@@ -402,16 +393,16 @@ def gererClavierEtSouris():
         recttw2[1]= recttw2[1] + 7
 #Ici, on va gerer le replacement des obtsacles quand isl disparaissent de l'ecran
     if bC > 1000 : # Si le carre disparait en bas de l'ecran, alors il se remet au dessus de l'ecran pour reapparaître ensuite
-        bC = -500
+        bC = -700
     if bT > 1000 :
-        bT = -500
+        bT = -700
     if rect[1] > 1000 :
-        rect[1] = -500
+        rect[1] = -700
     if Yline > 1000 :
-        Yline = -500
+        Yline = -700
     if recttw1[1] and recttw2[1] > 1000:
-        recttw1[1]=-480
-        recttw2[1]=-480
+        recttw1[1]=-700
+        recttw2[1]=-700
     if touchesPressees[pygame.K_SPACE] != True: # On gère la chute du projectile si on n'appuie pas sur espace
         projectile = (projectile[0], projectile[1] + 5)
         if continuer==4: # So le mode time est lance ET que la barre espace n'est pas appuye, ALORS la ligne du mode temps MONTE
