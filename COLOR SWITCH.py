@@ -41,6 +41,7 @@ def gameOver():
     pygame.display.flip()
 #Gerer le clique de la souris en fonction de sa position
 mode=0
+time=0
 def CLICK():
     global continuer,coord
     touchesPressees=pygame.key.get_pressed()
@@ -71,6 +72,16 @@ def souris():
     else:
         FOND=0
 
+clock = pygame.time.Clock()
+continuer=1 # On lance tout d'abord le menu
+while continuer==1:
+    # pygame permet de fixer la vitesse de notre:
+    # ici on dÃ©clare 60 tours par secondes soit une animation Ã  50 images par secondes
+    clock.tick(60)
+    souris()
+    Menu()
+    CLICK()
+    timeInit=pygame.time.get_ticks()/1000
 
 
 
@@ -81,8 +92,6 @@ def souris():
 
 font = pygame.font.SysFont("arial", 20)
 score=0
-timeInit=pygame.time.get_ticks()/1000
-time=0
 # On definit les variables qui contiendront les positions des differents elements (vaisseau, alien, projectile)
 # Chaque position est un couple de valeur '(x,y)'
 positionDepart = (300,525)
@@ -327,7 +336,7 @@ def modetime() :
 # Cette fonction sera appelee depuis notre boucle infinie
 def dessiner():
     if continuer!=5 or continuer!=0:
-        global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,continuer,mode
+        global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,mode,time
         # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
         fenetre.fill( (0,0,0) )
         if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
@@ -348,7 +357,6 @@ def dessiner():
         triangle()
         cercle()
         trait()
-        twincircles()
         if continuer==4: #On gère le mode time
             modetime()
             time=pygame.time.get_ticks()/1000 - timeInit #On calcule le temps qu'il s'est écoulé entre le lancement du jeux et le lancement du mode time
@@ -360,7 +368,7 @@ def dessiner():
         if mode==0:
            gameOver()
            text= font.render("Score :"  + str(score), True, pygame.Color(250,250,50))
-           fenetre.blit(text,(0,0) )
+           fenetre.blit(text,(0,0))
         if mode==1:
            gameOver()
            text2= font.render("Time :"  + str(Time), 20 , pygame.Color(0,0,0))
@@ -412,15 +420,7 @@ def gererClavierEtSouris():
             YlineMT = 800
 
 
-clock = pygame.time.Clock()
-continuer=1 # On lance tout d'abord le menu
-while continuer==1:
-    # pygame permet de fixer la vitesse de notre:
-    # ici on dÃ©clare 50 tours par secondes soit une animation Ã  50 images par secondes
-    clock.tick(60)
-    souris()
-    Menu()
-    CLICK()
+
 while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a clique sur Score
     clock.tick(60)
     dessiner()
