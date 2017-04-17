@@ -311,6 +311,7 @@ chgmt=0
 chgmtC=0
 chgmtT=0
 chgmtY=0
+chgmtCe=0
 
 #ligne du mode time
 YlineMT = 700
@@ -325,7 +326,7 @@ Temps=0
 # Cette fonction sera appelee depuis notre boucle infinie
 def dessiner():
     if continuer!=5 or continuer!=0:
-        global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps
+        global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe
         # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
         fenetre.fill( (0,0,0) )
         if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
@@ -334,6 +335,8 @@ def dessiner():
           fenetre.blit(imagescore,(a-13,bT))
         if chgmtY==0: #On gère la roue qui se trouve dans au dessus de trait
           fenetre.blit(imagescore,(projectile[0]-15,Yline-30))
+        if chgmtCe==0:
+            fenetre.blit(imagescore,(projectile[0]-15,rect[1]+150))
         if continuer==2: #On gère le mode score
                 text= font.render("Score :"  + str(score), True, pygame.Color(250,250,50))
                 fenetre.blit(text,(0,0) )
@@ -438,7 +441,12 @@ while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a cliq
         score=score+1
     if Yline > 800:
         chgmtY=0
-
+    rectObstacle4 = pygame.Rect(projectile[0],rect[1]+150,20,30)
+    if chgmtCe==0 and rectObstacle4.collidepoint(projectile):
+        couleurProjectile=random.choice(seq)
+        chgmtCe=1
+    if rect[1]>800:
+        chgmtCe=0
 #On gère la perte d'une partie
 while continuer==5:
      clock.tick(60)
