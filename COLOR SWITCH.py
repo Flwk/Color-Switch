@@ -1,11 +1,11 @@
-﻿# Créé par moi, le 16/04/2017 en Python 3.2
+﻿# Cree par moi, le 16/04/2017 en Python 3.2
 import pygame, math, random
 from pygame.locals import*
 
 pygame.init() # initialisation du module "pygame"
 
-fenetre = pygame.display.set_mode( (600,800) ) # Création d'une fenêtre graphique de taille 600x600 pixels
-pygame.display.set_caption("Color Switch") # Définit le titre de la fenêtre
+fenetre = pygame.display.set_mode( (600,800) ) # Creation d'une fenêtre graphique de taille 600x600 pixels
+pygame.display.set_caption("Color Switch") # Definit le titre de la fenêtre
 
 #===============================================MENU======================================================#
 
@@ -19,6 +19,8 @@ image4 = pygame.image.load("MENU 3.png").convert()
 FOND=0
 
 #_________________________________________
+
+#Gerer l'affichage du menu
 def Menu():
     global image1,image2,image3,image4,FOND
     if FOND ==0:
@@ -31,6 +33,9 @@ def Menu():
         fenetre.blit(image4,(0,0))
     pygame.display.flip()
 
+
+#Gerer le clique de la souris en fonction de sa position
+
 def CLICK():
     global continuer,coord
     touchesPressees=pygame.key.get_pressed()
@@ -40,15 +45,11 @@ def CLICK():
             continuer=0
         if event.type == MOUSEBUTTONDOWN and event.button == 1 and 34<coord[0]<244 and 650<coord[1]<700:
             continuer=4
-            print("true")
-
         if event.type == MOUSEBUTTONDOWN and event.button == 1 and 337<coord[0]<578 and 660<coord[1]<700:
             continuer=2
-            print("true1")
 
-        if event.type == MOUSEBUTTONDOWN and event.button == 1 and 244<coord[0]<336 and 628<coord[1]<508:
-            print("true2")
 
+#Gerer le changement du fond de l'image en fonction de la position de la souris
 
 def souris():
     global continuer,image1,FOND
@@ -70,20 +71,20 @@ def souris():
 #================================================================================================#
 
 
-
+#Variable pour gerer le score et le temps
 
 font = pygame.font.SysFont("arial", 20)
 score=0
 time=pygame.time.get_ticks()/100
 time=0
-# On définit les variables qui contiendront les positions des différents éléments (vaisseau, alien, projectile)
+# On definit les variables qui contiendront les positions des differents elements (vaisseau, alien, projectile)
 # Chaque position est un couple de valeur '(x,y)'
 positionDepart = (300,525)
 projectile = (300,600)
 CoordonneArc=(300,350)
 vitesse=1
 
-#On va créé les coordonné pour le rectangle
+#On va cree les coordonne pour le rectangle
 CoorC1=(-200,-400)
 CoorC2=(-400,-400)
 CoorC3=(-400,-200)
@@ -93,10 +94,12 @@ a=300
 bC = -100
 bT = -1200
 
+#On va cree les variable pour afficher la roue et la redimenssioner
+
 imagescore = pygame.image.load("Roue.png").convert()
 imagescore = pygame.transform.scale(imagescore,(25,25))
 
-#On va créé les coordonné pour le triangle
+#On va cree les coordonne pour le triangle
 zz=-100*(math.sqrt(3)-4)
 CoorT1=(200,-400)
 CoorT2=(400,-400)
@@ -128,11 +131,13 @@ angle22=math.pi/2
 angle32=math.pi*3/2
 angle42=math.pi*2
 
+#On cree ldes deux rectangles pour les twins cercles
+
 recttw1 =pygame.Rect(150,-1250,150,150)
 recttw2 = pygame.Rect(300,-1250,150,150)
 
 
-# On crée les variables pour les positions de segment
+# On cree les variables pour les positions de segment
 x1 = 1
 x11 = 150
 x2 = 150
@@ -141,16 +146,16 @@ x3 = 300
 x33 = 450
 x4 = 450
 x44 = 600
-Yline = -1300 #ici l'ordonnée variable de l'obstacle pour le défilement de l'écran
+Yline = -1300 #ici l'ordonnee variable de l'obstacle pour le defilement de l'ecran
 
-#on créé des variables pour les couleurs
+#on cree des variables pour les couleurs
 
 red=(255,0,0)
 jaune=(255, 228, 54)
 bleu=(43, 250, 250)
 violet=(121, 28, 248)
 
-#On créé une liste où on ajoutera les couleurs
+#On cree une liste où on ajoutera les couleurs
 seq=[]
 seq.append(red)
 seq.append(jaune)
@@ -162,6 +167,8 @@ seq.append(bleu)
 couleurProjectile = random.choice(seq)
 ##couleurProjecilte = Couleur1
 t=math.pi/4
+
+#On cree la fonction rectangle qui va afficher le rectangle et le faire tourenr
 def rectangle():
     global fenetre,red,bleu,jaune,violet,CoorC1,CoorC2,CoorC3,CoorC4,r,a,b,t,x
     x=1
@@ -176,7 +183,7 @@ def rectangle():
          CoorC1 = [a + r*(math.sin(t)),bC - r*(math.cos(t))]
          t = t - math.pi/60000
 
-
+#On cree la fonction triangle qui va afficher le triangle et le faire tourenr
 def  triangle():
     global fenetre,red,bleu,jaune,violet,CoorT1,CoorT2,CoorT3,r,a,b,t,x,line1,line2,line3
     x=1
@@ -201,7 +208,7 @@ def infini():
            teta = teta + math.pi/6000
 
 
-
+#On cree la fonction cercle qui va afficher le cercle et le faire tourenr
 def cercle():
     global angle0, angle, angle1, angle2,angle3,angle4,angle5,rect
     for x in range(0,100):
@@ -215,7 +222,7 @@ def cercle():
         angle3 = angle3 - angle5
         angle4 = angle4 - angle5
 
-
+#On cree la fonction twincercle qui va afficher le twincercle et le faire tourenr
 def twincircles():
     global angle5,angle01,angle1,angle21,angle31,angle41,angle02,angle221,angle22,angle32,angle42,recttw1,recttw2
     for x in range (0,100) :
@@ -241,7 +248,7 @@ def twincircles():
         angle32 = angle32 + angle5
         angle42 = angle42 + angle5
 
-
+#On cree la fonction trait qui va afficher le trait et le faire se deplacer sur lui même
 def trait():
     global x1,x2,x3,x4,x11,x22,x33,x44,Yline
     for x in range(0,100):
@@ -258,6 +265,8 @@ def trait():
         x33 = x33 + 0.02
         x4 = x4 + 0.02
         x44 = x44 + 0.02
+
+#On cree les conditions pour faire reapparaître le trait de l'autre côte de l'ecran
 
 # LE TRAIT VIOLET
         if x44 > 600 and x4 < 600 :
@@ -292,7 +301,7 @@ def trait():
             x11 = 150
             seg1 = pygame.draw.line(fenetre, red, (x1, Yline), (x11, Yline), 5)
 
-
+#On cree des variables qui vont nous servir à gerer l'apparition/disparition de la roue
 chgmt=0
 chgmtC=0
 chgmtT=0
@@ -301,64 +310,67 @@ chgmtY=0
 #ligne du mode time
 YlineMT = 700
 
+#La fonction qui va gerer le mode time et qui va afficher la barre
 def modetime() :
     global YlineMT
     LineMT = pygame.draw.line(fenetre, (255,255,255), (0, YlineMT), (600, YlineMT), 10)
 
 
-# Fonction en charge de dessiner tous les éléments sur notre fenêtre graphique.
-# Cette fonction sera appelée depuis notre boucle infinie
+# Fonction en charge de dessiner tous les elements sur notre fenêtre graphique.
+# Cette fonction sera appelee depuis notre boucle infinie
 def dessiner():
     global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,time,YlineMT
     # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
     fenetre.fill( (0,0,0) )
-    if chgmtC==0:
+    if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
       fenetre.blit(imagescore,(a-13,bC))
-    if chgmtT==0:
+    if chgmtT==0: #On gère la roue qui se trouve dans le triangle
       fenetre.blit(imagescore,(a-13,bT))
-    if chgmtY==0:
+    if chgmtY==0: #On gère la roue qui se trouve dans au dessus de trait
       fenetre.blit(imagescore,(projectile[0]-15,Yline-30))
     if projectile != (-1, -1):
         pygame.draw.circle(fenetre, couleurProjectile , projectile, 7) # On dessine le projectile (un simple petit cercle)
-    if continuer==2:
+    if continuer==2: #On gère le mode score
             text= font.render("Score :"  + str(score), True, pygame.Color(250,250,50))
             fenetre.blit(text,(0,0) )
+# On lance les fonctions qui vont afficher les obstacles
     rectangle()
     triangle()
     cercle()
     trait()
-    if continuer==4:
+    if continuer==4: #On gère le mode time
         modetime()
         text2= font.render("Time :"  + str(time), 0 , pygame.Color(250,250,50))
         fenetre.blit( text2 ,(0,0) )
-    pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières opérations de dessin
+    pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières operations de dessin
 
 
 
 
-# Fonction en charge de gérer les évènements clavier (ou souris)
-# Cette fonction sera appelée depuis notre boucle infinie
+# Fonction en charge de gerer les evènements clavier (ou souris)
+# Cette fonction sera appelee depuis notre boucle infinie
 def gererClavierEtSouris():
     global continuer, positionDepart, projectile, vitesse,rect,Yline,bC,bT,recttw1,recttw2,rect,YlineMT
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: # Permet de gérer un clic sur le bouton de fermeture de la fenêtre
+        if event.type == pygame.QUIT: # Permet de gerer un clic sur le bouton de fermeture de la fenêtre
             continuer = 0
-    # Gestion du clavier ainsi que du déplacement du projectile
+    # Gestion du clavier ainsi que du deplacement du projectile
     touchesPressees = pygame.key.get_pressed()
-    if touchesPressees[pygame.K_SPACE] == True:
+    if touchesPressees[pygame.K_SPACE] == True: # On fait monter le projectile
         projectile = (projectile[0], projectile[1] - 7)
         vitesse = 1
-        if continuer==4:
+        if continuer==4: # Si le mode Time est lance on fait ET que le projectile monte, la barre descend
             YlineMT = YlineMT  + 6
-    if touchesPressees[pygame.K_SPACE] == True and projectile[1] <= 400: #Ce if gère le défilement du terrain ( des obstacles ) en fonction de la position du projectile
-        projectile = (projectile[0], 400)
+    if touchesPressees[pygame.K_SPACE] == True and projectile[1] <= 400: #Ce if gère le defilement du terrain ( des obstacles ) en fonction de la position du projectile
+        projectile = (projectile[0], 400) # Si le projectile a atteint la moitie de l'ecran, ALORS le projectile n'avance plus et on fait defiler les obstacles
         bC = bC + 7
         bT = bT + 7
         rect[1] = rect[1] + 7
         Yline = Yline + 7
         recttw1[1]= recttw1[1] + 7
         recttw2[1]= recttw2[1] + 7
-    if bC > 1000 :
+#Ici, on va gerer le replacement des obtsacles quand isl disparaissent de l'ecran
+    if bC > 1000 : # Si le carre disparait en bas de l'ecran, alors il se remet au dessus de l'ecran pour reapparaître ensuite
         bC = -500
     if bT > 1000 :
         bT = -500
@@ -366,16 +378,16 @@ def gererClavierEtSouris():
         rect[1] = -500
     if Yline > 1000 :
         Yline = -500
-    if touchesPressees[pygame.K_SPACE] != True:
+    if touchesPressees[pygame.K_SPACE] != True: # On gère la chute du projectile si on n'appuie pas sur espace
         projectile = (projectile[0], projectile[1] + 5)
-        if continuer==4:
+        if continuer==4: # So le mode time est lance ET que la barre espace n'est pas appuye, ALORS la ligne du mode temps MONTE
             YlineMT = YlineMT - 6
-        if YlineMT >= 800 :
+        if YlineMT >= 800 : #La barre du mode temps ne peut pas descendre plus bas que le bas de l'ecran
             YlineMT = 800
 
 
 clock = pygame.time.Clock()
-continuer=1
+continuer=1 # On lance tout d'abord le menu
 while continuer==1:
     # pygame permet de fixer la vitesse de notre:
     # ici on dÃ©clare 50 tours par secondes soit une animation Ã  50 images par secondes
@@ -384,22 +396,22 @@ while continuer==1:
     Menu()
     CLICK()
 
-while continuer==2:
+while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a clique sur Score
     dessiner()
     gererClavierEtSouris()
-   # On gÃ¨re la fin de la partie, la dÃ©tection   du passage de l'obstacle et le changement de couleur
+   # On gere la fin de la partie, la detection   du passage de l'obstacle et le changement de couleur
     if projectile[1] > 800:
         continuer=0
     if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
         continuer=0
 
-#DÃ©tection de la collision et changement de la couleur
+#Detection de la collision et changement de la couleur
     rectObstacle1 = pygame.Rect(a-50,bC,100,50)
-    if  chgmtC==0 and rectObstacle1.collidepoint(projectile):
+    if  chgmtC==0 and rectObstacle1.collidepoint(projectile): #Si le changement est egale à 0 et que le projectile entre en collsision avec la roue ALORS la couleur est choisi aléatoirement, et le core augmente
         couleurProjectile=random.choice((red,jaune,bleu))
         chgmtC=1
         score=score+1
-    if bC > 800:
+    if bC > 800: #Une fois que l'obstacle a disparu de l'écran, le changement est egal 0 et la roeu peut ré apparaître
         chgmtC=0
     rectObstacle2 = pygame.Rect(a-50,bT,100,50)
     if  chgmtT==0 and rectObstacle2.collidepoint(projectile):
@@ -413,39 +425,6 @@ while continuer==2:
         couleurProjectile=random.choice(seq)
         chgmtY=1
         score=score+1
-    if Yline > 800:
-        chgmtY=0
-
-
-while continuer==4:
-    dessiner()
-    gererClavierEtSouris()
-   # On gÃ¨re la fin de la partie, la dÃ©tection   du passage de l'obstacle et le changement de couleur
-    if projectile[1] > 800:
-        continuer=0
-    if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
-        continuer=0
-
-#DÃ©tection de la collision et changement de la couleur
-    rectObstacle1 = pygame.Rect(a-50,bC,100,50)
-    if  chgmtC==0 and rectObstacle1.collidepoint(projectile):
-        couleurProjectile=random.choice((red,jaune,bleu))
-        chgmtC=1
-
-    if bC > 800:
-        chgmtC=0
-    rectObstacle2 = pygame.Rect(a-50,bT,100,50)
-    if  chgmtT==0 and rectObstacle2.collidepoint(projectile):
-        couleurProjectile=random.choice((red,jaune,bleu))
-        chgmtT=1
-
-    if bT > 800:
-        chgmtT=0
-    rectObstacle3 = pygame.Rect(300,Yline-50,100,30)
-    if chgmtY==0 and rectObstacle3.collidepoint(projectile):
-        couleurProjectile=random.choice(seq)
-        chgmtY=1
-
     if Yline > 800:
         chgmtY=0
 
