@@ -1,4 +1,5 @@
 ﻿# Cree par moi, le 16/04/2017 en Python 3.2
+# -*- coding: utf-8 -*-
 import pygame, math, random
 from pygame.locals import*
 
@@ -9,7 +10,7 @@ pygame.display.set_caption("Color Switch") # Definit le titre de la fenêtre
 
 #===============================================MENU======================================================#
 
-continuer=0
+
 #______________image___________________________
 image1 = pygame.image.load("MENU.png").convert()
 image2 = pygame.image.load("MENU 1.png").convert()
@@ -371,7 +372,7 @@ def gererClavierEtSouris():
         projectile = (projectile[0], projectile[1] - 7)
         vitesse = 1
         if continuer==4: # Si le mode Time est lance on fait ET que le projectile monte, la barre descend
-            YlineMT = YlineMT  + 6
+            YlineMT = YlineMT  + 5
     if touchesPressees[pygame.K_SPACE] == True and projectile[1] <= 400: #Ce if gère le defilement du terrain ( des obstacles ) en fonction de la position du projectile
         projectile = (projectile[0], 400) # Si le projectile a atteint la moitie de l'ecran, ALORS le projectile n'avance plus et on fait defiler les obstacles
         bC = bC + 7
@@ -407,6 +408,7 @@ while continuer==1:
     Menu()
     CLICK()
 while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a clique sur Score
+    clock.tick(60)
     dessiner()
     gererClavierEtSouris()
    # On gere la fin de la partie, la detection   du passage de l'obstacle et le changement de couleur
@@ -439,10 +441,15 @@ while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a cliq
 
 #On gère la perte d'une partie
 while continuer==5:
-        rebour=pygame.time.get_ticks()/1000
-        dessiner()
-        if rebour > 12: #La page se ferme au bout de 10 secondes
-            continuer=0
+     clock.tick(60)
+     rebour=pygame.time.get_ticks()/1000
+     if rebour > 5: #La page se ferme au bout de 05 secondes
+        continuer=1
+     else :
+       dessiner()
+
+
+
 
 # A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
 pygame.quit()
