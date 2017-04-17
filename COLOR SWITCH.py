@@ -298,11 +298,18 @@ chgmtC=0
 chgmtT=0
 chgmtY=0
 
+#ligne du mode time
+YlineMT = 700
+
+def modetime() :
+    global YlineMT
+    LineMT = pygame.draw.line(fenetre, (255,255,255), (0, YlineMT), (600, YlineMT), 10)
+
 
 # Fonction en charge de dessiner tous les éléments sur notre fenêtre graphique.
 # Cette fonction sera appelée depuis notre boucle infinie
 def dessiner():
-    global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,time
+    global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,time,YlineMT
     # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
     fenetre.fill( (0,0,0) )
     if chgmtC==0:
@@ -321,6 +328,7 @@ def dessiner():
     cercle()
     trait()
     if continuer==4:
+        modetime()
         text2= font.render("Time :"  + str(time), 0 , pygame.Color(250,250,50))
         fenetre.blit( text2 ,(0,0) )
     pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières opérations de dessin
@@ -331,7 +339,7 @@ def dessiner():
 # Fonction en charge de gérer les évènements clavier (ou souris)
 # Cette fonction sera appelée depuis notre boucle infinie
 def gererClavierEtSouris():
-    global continuer, positionDepart, projectile, vitesse,rect,Yline,bC,bT,recttw1,recttw2,rect
+    global continuer, positionDepart, projectile, vitesse,rect,Yline,bC,bT,recttw1,recttw2,rect,YlineMT
     for event in pygame.event.get():
         if event.type == pygame.QUIT: # Permet de gérer un clic sur le bouton de fermeture de la fenêtre
             continuer = 0
@@ -340,6 +348,8 @@ def gererClavierEtSouris():
     if touchesPressees[pygame.K_SPACE] == True:
         projectile = (projectile[0], projectile[1] - 7)
         vitesse = 1
+        if continuer==4:
+            YlineMT = YlineMT  + 6
     if touchesPressees[pygame.K_SPACE] == True and projectile[1] <= 400: #Ce if gère le défilement du terrain ( des obstacles ) en fonction de la position du projectile
         projectile = (projectile[0], 400)
         bC = bC + 7
@@ -358,6 +368,10 @@ def gererClavierEtSouris():
         Yline = -500
     if touchesPressees[pygame.K_SPACE] != True:
         projectile = (projectile[0], projectile[1] + 5)
+        if continuer==4:
+            YlineMT = YlineMT - 6
+        if YlineMT >= 800 :
+            YlineMT = 800
 
 
 clock = pygame.time.Clock()
