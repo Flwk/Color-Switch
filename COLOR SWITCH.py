@@ -353,12 +353,14 @@ def dessiner():
             modetime()
             time=pygame.time.get_ticks()/1000 - timeInit #On calcule le temps qu'il s'est écoulé entre le lancement du jeux et le lancement du mode time
             Time=round(time,2) #On limite le nombre après la virgule à 0
-            text2= font.render("Time :"  + str(Time), 0 , pygame.Color(250,250,50))
+            text2= font.render("Time :"  + str(Time), 0 , pygame.Color(250,250,250))
             fenetre.blit( text2 ,(0,0) )
             mode=1
     if continuer==5: #Si le joueur perd, on lance la page Game Over et on aff
         if mode==0:
            gameOver()
+           text= font.render("Score :"  + str(score), True, pygame.Color(250,250,50))
+           fenetre.blit(text,(0,0) )
         if mode==1:
            gameOver()
            text2= font.render("Time :"  + str(Time), 20 , pygame.Color(0,0,0))
