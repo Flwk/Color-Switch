@@ -15,6 +15,7 @@ image1 = pygame.image.load("MENU.png").convert()
 image2 = pygame.image.load("MENU 1.png").convert()
 image3 = pygame.image.load("MENU 2.png").convert()
 image4 = pygame.image.load("MENU 3.png").convert()
+image5 = pygame.image.load("GO.png").convert()
 #________________variables_______________
 FOND=0
 
@@ -33,7 +34,10 @@ def Menu():
         fenetre.blit(image4,(0,0))
     pygame.display.flip()
 
-
+def gameOver():
+    global image5
+    fenetre.blit(image5,(0,0))
+    pygame.display.flip()
 #Gerer le clique de la souris en fonction de sa position
 
 def CLICK():
@@ -315,35 +319,40 @@ def modetime() :
     global YlineMT
     LineMT = pygame.draw.line(fenetre, (255,255,255), (0, YlineMT), (600, YlineMT), 10)
 
-
+Temps=0
 # Fonction en charge de dessiner tous les elements sur notre fenêtre graphique.
 # Cette fonction sera appelee depuis notre boucle infinie
 def dessiner():
-    global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,time
-    # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
-    fenetre.fill( (0,0,0) )
-    if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
-      fenetre.blit(imagescore,(a-13,bC))
-    if chgmtT==0: #On gère la roue qui se trouve dans le triangle
-      fenetre.blit(imagescore,(a-13,bT))
-    if chgmtY==0: #On gère la roue qui se trouve dans au dessus de trait
-      fenetre.blit(imagescore,(projectile[0]-15,Yline-30))
-    if projectile != (-1, -1):
-        pygame.draw.circle(fenetre, couleurProjectile , projectile, 7) # On dessine le projectile (un simple petit cercle)
-    if continuer==2: #On gère le mode score
-            text= font.render("Score :"  + str(score), True, pygame.Color(250,250,50))
-            fenetre.blit(text,(0,0) )
-# On lance les fonctions qui vont afficher les obstacles
-    rectangle()
-    triangle()
-    cercle()
-    trait()
-    if continuer==4: #On gère le mode time
-        modetime()
-        time=pygame.time.get_ticks()/1000 - timeInit #On calcule le temps qu'il s'est écoulé entre le lancement du jeux et le lancement du mode time
-        Time=round(time,2) #On limite le nombre après la virgule à 0
-        text2= font.render("Time :"  + str(Time), 0 , pygame.Color(250,250,50))
-        fenetre.blit( text2 ,(0,0) )
+    if continuer!=5 or continuer!=0:
+        global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps
+        # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
+        fenetre.fill( (0,0,0) )
+        if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
+          fenetre.blit(imagescore,(a-13,bC))
+        if chgmtT==0: #On gère la roue qui se trouve dans le triangle
+          fenetre.blit(imagescore,(a-13,bT))
+        if chgmtY==0: #On gère la roue qui se trouve dans au dessus de trait
+          fenetre.blit(imagescore,(projectile[0]-15,Yline-30))
+        if continuer==2: #On gère le mode score
+                text= font.render("Score :"  + str(score), True, pygame.Color(250,250,50))
+                fenetre.blit(text,(0,0) )
+        if projectile != (-1, -1):
+            pygame.draw.circle(fenetre, couleurProjectile , projectile, 7) # On dessine le projectile (un simple petit cercle)
+        # On lance les fonctions qui vont afficher les obstacles
+        rectangle()
+        triangle()
+        cercle()
+        trait()
+        if continuer==4: #On gère le mode time
+            modetime()
+            time=pygame.time.get_ticks()/1000 - timeInit #On calcule le temps qu'il s'est écoulé entre le lancement du jeux et le lancement du mode time
+            Time=round(time,2) #On limite le nombre après la virgule à 0
+            text2= font.render("Time :"  + str(Time), 0 , pygame.Color(250,250,50))
+            fenetre.blit( text2 ,(0,0) )
+    if continuer==5: #Si le joueur perd, on lance la page Game Over et on aff
+        gameOver()
+        text2= font.render("Time :"  + str(Time), 20 , pygame.Color(0,0,0))
+        fenetre.blit( text2 ,(0,0) ) #On affiche le temps du joueur
     pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières operations de dessin
 
 
@@ -383,7 +392,7 @@ def gererClavierEtSouris():
     if touchesPressees[pygame.K_SPACE] != True: # On gère la chute du projectile si on n'appuie pas sur espace
         projectile = (projectile[0], projectile[1] + 5)
         if continuer==4: # So le mode time est lance ET que la barre espace n'est pas appuye, ALORS la ligne du mode temps MONTE
-            YlineMT = YlineMT - 6
+            YlineMT = YlineMT - 8
         if YlineMT >= 800 : #La barre du mode temps ne peut pas descendre plus bas que le bas de l'ecran
             YlineMT = 800
 
@@ -397,16 +406,14 @@ while continuer==1:
     souris()
     Menu()
     CLICK()
-
 while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a clique sur Score
     dessiner()
     gererClavierEtSouris()
    # On gere la fin de la partie, la detection   du passage de l'obstacle et le changement de couleur
     if projectile[1] > 800:
-        continuer=0
+        continuer=5
     if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
-        continuer=0
-
+        continuer=5
 #Detection de la collision et changement de la couleur
     rectObstacle1 = pygame.Rect(a-50,bC,100,50)
     if  chgmtC==0 and rectObstacle1.collidepoint(projectile): #Si le changement est egale à 0 et que le projectile entre en collsision avec la roue ALORS la couleur est choisi aléatoirement, et le core augmente
@@ -430,6 +437,12 @@ while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a cliq
     if Yline > 800:
         chgmtY=0
 
+#On gère la perte d'une partie
+while continuer==5:
+        rebour=pygame.time.get_ticks()/1000
+        dessiner()
+        if rebour > 10: #La page se ferme au bout de 10 secondes
+            continuer=0
 
 # A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
 pygame.quit()
