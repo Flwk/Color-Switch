@@ -40,7 +40,7 @@ def gameOver():
     fenetre.blit(image5,(0,0))
     pygame.display.flip()
 #Gerer le clique de la souris en fonction de sa position
-
+mode=0
 def CLICK():
     global continuer,coord
     touchesPressees=pygame.key.get_pressed()
@@ -50,6 +50,7 @@ def CLICK():
             continuer=0
         if event.type == MOUSEBUTTONDOWN and event.button == 1 and 34<coord[0]<244 and 650<coord[1]<700:
             continuer=4
+            mode=1
         if event.type == MOUSEBUTTONDOWN and event.button == 1 and 337<coord[0]<578 and 660<coord[1]<700:
             continuer=2
 
@@ -321,12 +322,12 @@ def modetime() :
     global YlineMT
     LineMT = pygame.draw.line(fenetre, (255,255,255), (0, YlineMT), (600, YlineMT), 10)
 
-Temps=0
+
 # Fonction en charge de dessiner tous les elements sur notre fenêtre graphique.
 # Cette fonction sera appelee depuis notre boucle infinie
 def dessiner():
     if continuer!=5 or continuer!=0:
-        global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe
+        global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,continuer,mode
         # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
         fenetre.fill( (0,0,0) )
         if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
@@ -354,10 +355,14 @@ def dessiner():
             Time=round(time,2) #On limite le nombre après la virgule à 0
             text2= font.render("Time :"  + str(Time), 0 , pygame.Color(250,250,50))
             fenetre.blit( text2 ,(0,0) )
+            mode=1
     if continuer==5: #Si le joueur perd, on lance la page Game Over et on aff
-        gameOver()
-        text2= font.render("Time :"  + str(Time), 20 , pygame.Color(0,0,0))
-        fenetre.blit( text2 ,(0,0) ) #On affiche le temps du joueur
+        if mode==0:
+           gameOver()
+        if mode==1:
+           gameOver()
+           text2= font.render("Time :"  + str(Time), 20 , pygame.Color(0,0,0))
+           fenetre.blit( text2 ,(0,0) ) #On affiche le temps du joueur
     pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières operations de dessin
 
 
