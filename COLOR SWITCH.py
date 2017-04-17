@@ -75,7 +75,7 @@ def souris():
 
 font = pygame.font.SysFont("arial", 20)
 score=0
-time=pygame.time.get_ticks()/100
+timeInit=pygame.time.get_ticks()/1000
 time=0
 # On definit les variables qui contiendront les positions des differents elements (vaisseau, alien, projectile)
 # Chaque position est un couple de valeur '(x,y)'
@@ -319,7 +319,7 @@ def modetime() :
 # Fonction en charge de dessiner tous les elements sur notre fenêtre graphique.
 # Cette fonction sera appelee depuis notre boucle infinie
 def dessiner():
-    global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,time,YlineMT
+    global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,time
     # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
     fenetre.fill( (0,0,0) )
     if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
@@ -340,7 +340,9 @@ def dessiner():
     trait()
     if continuer==4: #On gère le mode time
         modetime()
-        text2= font.render("Time :"  + str(time), 0 , pygame.Color(250,250,50))
+        time=pygame.time.get_ticks()/1000 - timeInit #On calcule le temps qu'il s'est écoulé entre le lancement du jeux et le lancement du mode time
+        Time=round(time,2) #On limite le nombre après la virgule à 0
+        text2= font.render("Time :"  + str(Time), 0 , pygame.Color(250,250,50))
         fenetre.blit( text2 ,(0,0) )
     pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières operations de dessin
 
