@@ -38,15 +38,15 @@ def CLICK():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             continuer=0
-        if event.type == MOUSEBUTTONDOWN and event.button == 1 and 34<coord[0]<244 and 492<coord[1]<524:
+        if event.type == MOUSEBUTTONDOWN and event.button == 1 and 34<coord[0]<244 and 650<coord[1]<700:
             continuer=4
             print("true")
 
-        if event.type == MOUSEBUTTONDOWN and event.button == 1 and 337<coord[0]<578 and 492<coord[1]<524:
+        if event.type == MOUSEBUTTONDOWN and event.button == 1 and 337<coord[0]<578 and 660<coord[1]<700:
             continuer=2
             print("true1")
 
-        if event.type == MOUSEBUTTONDOWN and event.button == 1 and 244<coord[0]<336 and 258<coord[1]<338:
+        if event.type == MOUSEBUTTONDOWN and event.button == 1 and 244<coord[0]<336 and 628<coord[1]<508:
             print("true2")
 
 
@@ -55,11 +55,11 @@ def souris():
     coord=pygame.mouse.get_pos()
 ##    print(coord)
 
-    if 34<coord[0]<244 and 492<coord[1]<524:
+    if 34<coord[0]<244 and 650<coord[1]<700:
         FOND=1
-    elif 337<coord[0]<578 and 492<coord[1]<524:
+    elif 337<coord[0]<578 and 660<coord[1]<700:
         FOND=2
-    elif 244<coord[0]<336 and 258<coord[1]<338:
+    elif 244<coord[0]<336 and 658<coord[1]<538:
         FOND=3
     else:
         FOND=0
