@@ -347,6 +347,7 @@ def dessiner():
         triangle()
         cercle()
         trait()
+        twincircles()
         if continuer==4: #On gère le mode time
             modetime()
             time=pygame.time.get_ticks()/1000 - timeInit #On calcule le temps qu'il s'est écoulé entre le lancement du jeux et le lancement du mode time
@@ -393,6 +394,9 @@ def gererClavierEtSouris():
         rect[1] = -500
     if Yline > 1000 :
         Yline = -500
+    if recttw1[1] and recttw2[1] > 1000:
+        recttw1[1]=-480
+        recttw2[1]=-480
     if touchesPressees[pygame.K_SPACE] != True: # On gère la chute du projectile si on n'appuie pas sur espace
         projectile = (projectile[0], projectile[1] + 5)
         if continuer==4: # So le mode time est lance ET que la barre espace n'est pas appuye, ALORS la ligne du mode temps MONTE
