@@ -392,7 +392,7 @@ def gererClavierEtSouris():
     if touchesPressees[pygame.K_SPACE] != True: # On gère la chute du projectile si on n'appuie pas sur espace
         projectile = (projectile[0], projectile[1] + 5)
         if continuer==4: # So le mode time est lance ET que la barre espace n'est pas appuye, ALORS la ligne du mode temps MONTE
-            YlineMT = YlineMT - 8
+            YlineMT = YlineMT - 5
         if YlineMT >= 800 : #La barre du mode temps ne peut pas descendre plus bas que le bas de l'ecran
             YlineMT = 800
 
@@ -441,7 +441,7 @@ while continuer==2 or continuer==4: # Pn lance le mode score si le joueur a cliq
 while continuer==5:
         rebour=pygame.time.get_ticks()/1000
         dessiner()
-        if rebour > 10: #La page se ferme au bout de 10 secondes
+        if rebour > 12: #La page se ferme au bout de 10 secondes
             continuer=0
 
 # A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
