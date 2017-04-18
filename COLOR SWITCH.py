@@ -324,7 +324,7 @@ while continuer!=0:
         # Cette fonction sera appelee depuis notre boucle infinie
         def dessiner():
             if continuer!=5 or continuer!=0 or again==1:
-                global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,mode,time,image5
+                global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,mode,time,image5,rebourT
                 # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
                 fenetre.fill( (0,0,0) )
                 if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
@@ -345,11 +345,12 @@ while continuer!=0:
                 triangle()
                 cercle()
                 trait()
-        ##        twincircles() # Fais beaucoup ralentire le jeu
+##                twincircles() # Fais beaucoup ralentire le jeu
                 if continuer==4: #On gère le mode time
-                    modetime()
                     time=pygame.time.get_ticks()/1000 - timeInit #On calcule le temps qu'il s'est écoulé entre le lancement du jeux et le lancement du mode time
                     Time=round(time,2) #On limite le nombre après la virgule à 0
+                    if Time>=2:
+                        modetime()
                     text2= font.render("Time :"  + str(Time), 0 , pygame.Color(250,250,250))
                     fenetre.blit( text2 ,(0,0) )
                     mode=1
@@ -412,6 +413,7 @@ while continuer!=0:
 
 
         while continuer==2 or continuer==4: # On lance le mode score si le joueur a clique sur Score
+            rebourT = pygame.time.get_ticks()/1000
             clock.tick(60)
             dessiner()
             gererClavierEtSouris()
