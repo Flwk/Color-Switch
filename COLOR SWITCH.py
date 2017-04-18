@@ -71,7 +71,7 @@ while continuer!=0:
                 FOND=3
             else:
                 FOND=0
-##        continuer=1
+        continuer=1
         clock = pygame.time.Clock()
         while continuer==1:
             # pygame permet de fixer la vitesse de notre:
@@ -356,11 +356,11 @@ while continuer!=0:
             if continuer==5: #Si le joueur perd, on lance la page Game Over et on aff
                 if mode==0:
                    fenetre.blit(image5,(0,0))
-                   text= font.render("Score :"  + str(score), True, pygame.Color(250,250,50))
+                   text= font.render("Score :"  + str(score), 40, pygame.Color(0,0,0))
                    fenetre.blit(text,(0,0))
                 if mode==1:
                    fenetre.blit(image5,(0,0))
-                   text2= font.render("Time :"  + str(Time), 20 , pygame.Color(0,0,0))
+                   text2= font.render("Time :"  + str(Time), 40 , pygame.Color(0,0,0))
                    fenetre.blit( text2 ,(0,0) ) #On affiche le temps du joueur
             pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières operations de dessin
 
