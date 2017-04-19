@@ -3,9 +3,9 @@
 
 #===============================================MENU======================================================#
 continuer=1 # On lance tout d'abord le menu
-while continuer!=0:
-        import pygame, math, random, sys
-        from pygame.locals import*
+while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance le jeu à l'infini
+        import pygame, math, random #On importe les différentes bibliotheques que nous allons utilisé
+        from pygame.locals import*  #On importe certaines fonctions qui nous serons utile pour le Menu
         pygame.init() # initialisation du module "pygame"
         fenetre = pygame.display.set_mode( (600,800) ) # Creation d'une fenêtre graphique de taille 600x600 pixels
         pygame.display.set_caption("Color Switch") # Definit le titre de la fenêtre
@@ -50,7 +50,7 @@ while continuer!=0:
                         continuer=0
                     if event.type == MOUSEBUTTONDOWN and event.button == 1 and 34<coord[0]<244 and 650<coord[1]<700:
                         continuer=4
-                        mode=1
+                        mode=1 #On affecte 1 à mode, ce qui va nous servir pour l'affichage du temps au Game Over
                     if event.type == MOUSEBUTTONDOWN and event.button == 1 and 337<coord[0]<578 and 660<coord[1]<700:
                         continuer=2
 
@@ -60,7 +60,6 @@ while continuer!=0:
         def souris():
             global continuer,image1,FOND
             coord=pygame.mouse.get_pos()
-        ##    print(coord)
 
             if 34<coord[0]<244 and 650<coord[1]<700:
                 FOND=1
@@ -70,8 +69,8 @@ while continuer!=0:
                 FOND=3
             else:
                 FOND=0
-        continuer=1
         clock = pygame.time.Clock()
+        # On lance le menu
         while continuer==1:
             # pygame permet de fixer la vitesse de notre:
             # ici on dÃ©clare 60 tours par secondes soit une animation Ã  50 images par secondes
@@ -89,12 +88,10 @@ while continuer!=0:
 
         font = pygame.font.SysFont("arial", 20)
         score=0
-        # On definit les variables qui contiendront les positions des differents elements (vaisseau, alien, projectile)
+        # On definit les variables qui contiendront les positions des differents elements comme le projectile
         # Chaque position est un couple de valeur '(x,y)'
-        positionDepart = (300,525)
         projectile = (300,600)
         CoordonneArc=(300,350)
-        vitesse=1
 
         #On va cree les coordonne pour le rectangle
         CoorC1=(-200,-400)
@@ -103,6 +100,8 @@ while continuer!=0:
         CoorC4=(-200,-200)
         r=100 * math.sqrt(5)
         a=300
+
+        #Ce sont les y du carré et du triangle
         bC = -100
         bT = -1200
 
@@ -119,7 +118,7 @@ while continuer!=0:
         r=(800/3) - (200*math.sqrt(3)/3)
         a=300
         bT=-400 - (100*math.sqrt(3))/3
-        tour=1
+        t=math.pi/4
 
         #les variables pour le cercle
         angle0 = 0
@@ -177,8 +176,6 @@ while continuer!=0:
 
         #On assigne au hasard une couleur au projectile
         couleurProjectile = random.choice(seq)
-        ##couleurProjecilte = Couleur1
-        t=math.pi/4
 
         #On cree la fonction rectangle qui va afficher le rectangle et le faire tourenr
         def rectangle():
@@ -323,7 +320,7 @@ while continuer!=0:
         # Cette fonction sera appelee depuis notre boucle infinie
         def dessiner():
             if continuer!=5 or continuer!=0 or again==1:
-                global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,tour,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,mode,time,image5,rebourT
+                global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,mode,time,image5,rebourT
                 # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
                 fenetre.fill( (0,0,0) )
                 if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
@@ -370,7 +367,7 @@ while continuer!=0:
         # Fonction en charge de gerer les evènements clavier (ou souris)
         # Cette fonction sera appelee depuis notre boucle infinie
         def gererClavierEtSouris():
-            global continuer, positionDepart, projectile, vitesse,rect,Yline,bC,bT,recttw1,recttw2,rect,YlineMT
+            global continuer, projectile,rect,Yline,bC,bT,recttw1,recttw2,rect,YlineMT
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # Permet de gerer un clic sur le bouton de fermeture de la fenêtre
                     continuer = 0
@@ -379,7 +376,6 @@ while continuer!=0:
             touchesPressees = pygame.key.get_pressed()
             if touchesPressees[pygame.K_SPACE] == True: # On fait monter le projectile
                 projectile = (projectile[0], projectile[1] - 7)
-                vitesse = 1
                 if continuer==4: # Si le mode Time est lance on fait ET que le projectile monte, la barre descend
                     YlineMT = YlineMT  + 5
             if touchesPressees[pygame.K_SPACE] == True and projectile[1] <= 400: #Ce if gère le defilement du terrain ( des obstacles ) en fonction de la position du projectile
@@ -416,7 +412,7 @@ while continuer!=0:
             clock.tick(60)
             dessiner()
             gererClavierEtSouris()
-           # On gere la fin de la partie, la detection   du passage de l'obstacle et le changement de couleur
+           # On gere la fin de la partie, la detection  du passage de l'obstacle et le changement de couleur
             if projectile[1] > 800:
                 continuer=5
                 rebour=pygame.time.get_ticks()/1000
@@ -452,17 +448,16 @@ while continuer!=0:
             if rect[1]>800:
                 chgmtCe=0
 
-        again=0
         #On gère la perte d'une partie
         while continuer==5:
             gererClavierEtSouris()
             CLICK()
             clock.tick(60)
             rebour1 = rebour - pygame.time.get_ticks()/1000
-            if rebour1 < -2: #La page se ferme au bout de 05 secondes
+            if rebour1 < -3: #La page se ferme au bout de 03 secondes
                  continuer=1
             else :
                dessiner()
-        pygame.display.quit()
+        pygame.display.quit() #Ferme l'AFFICHAGE seulement
 # A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
 pygame.quit()
