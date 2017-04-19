@@ -434,7 +434,7 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
                 continuer=5
                 rebour=pygame.time.get_ticks()/1000
             if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
-##                continuer=5
+                continuer=5
                 rebour=pygame.time.get_ticks()/1000
         #Detection de la collision et changement de la couleur
             rectObstacle1 = pygame.Rect(a-50,bC,100,50)
