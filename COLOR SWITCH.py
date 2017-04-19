@@ -9,7 +9,6 @@ while continuer!=0:
         pygame.init() # initialisation du module "pygame"
         fenetre = pygame.display.set_mode( (600,800) ) # Creation d'une fenêtre graphique de taille 600x600 pixels
         pygame.display.set_caption("Color Switch") # Definit le titre de la fenêtre
-
         #______________image___________________________
         image1 = pygame.image.load("MENU.png").convert()
         image2 = pygame.image.load("MENU 1.png").convert()
@@ -464,6 +463,6 @@ while continuer!=0:
                  continuer=1
             else :
                dessiner()
-
-        # A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
-        pygame.quit()
+        pygame.display.quit()
+# A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
+pygame.quit()
