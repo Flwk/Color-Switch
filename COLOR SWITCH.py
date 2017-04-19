@@ -176,10 +176,11 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
 
         #On assigne au hasard une couleur au projectile
         couleurProjectile = random.choice(seq)
-
+        vitesseAngleC=math.pi/60000
+        vitesseAngleT=math.pi/60000
         #On cree la fonction rectangle qui va afficher le rectangle et le faire tourenr
         def rectangle():
-            global fenetre,red,bleu,jaune,violet,CoorC1,CoorC2,CoorC3,CoorC4,r,a,b,t,x
+            global fenetre,red,bleu,jaune,violet,CoorC1,CoorC2,CoorC3,CoorC4,r,a,b,t,x,vitesseAngleC
             x=1
             for x in range(1,1000):
                  pygame.draw.line(fenetre,red,CoorC1,CoorC2,5)
@@ -190,11 +191,11 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
                  CoorC3 = [a - r*(math.sin(t)),bC + r*(math.cos(t))]
                  CoorC2 = [a - r*(math.cos(t)),bC - r*(math.sin(t))]
                  CoorC1 = [a + r*(math.sin(t)),bC - r*(math.cos(t))]
-                 t = t - math.pi/60000
+                 t = t - vitesseAngleC
 
         #On cree la fonction triangle qui va afficher le triangle et le faire tourenr
         def  triangle():
-            global fenetre,red,bleu,jaune,violet,CoorT1,CoorT2,CoorT3,r,a,b,t,x,line1,line2,line3
+            global fenetre,red,bleu,jaune,violet,CoorT1,CoorT2,CoorT3,r,a,b,t,x,line1,line2,line3,vitesseAngleT
             x=1
 
             for x in range(1,10):
@@ -205,7 +206,7 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
                  CoorT3 = [a + r*(math.cos(t)),bT + r*(math.sin(t))]
                  CoorT2 = [a + r*(math.cos(2*math.pi/3 + t )),bT + r*(math.sin(2*math.pi/3 + t))]
                  CoorT1 = [a + r*(math.cos(-2*math.pi/3 + t)),bT + r*(math.sin(-2*math.pi/3 + t))]
-                 t = t - math.pi/400000
+                 t = t - vitesseAngleT
 
         #On cree la fonction cercle qui va afficher le cercle et le faire tourenr
         def cercle():
@@ -362,12 +363,16 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
             pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières operations de dessin
 
 
+#_____________Variable pour la difficulté________#
+        countC=0
+        countT=0
+        countCe=0
 
-
+#________________________________________________#
         # Fonction en charge de gerer les evènements clavier (ou souris)
         # Cette fonction sera appelee depuis notre boucle infinie
         def gererClavierEtSouris():
-            global continuer, projectile,rect,Yline,bC,bT,recttw1,recttw2,rect,YlineMT
+            global continuer, projectile,rect,Yline,bC,bT,recttw1,recttw2,rect,YlineMT,vitesseAngleC,vitesseAngleT,angle5,countC,countT,countCe
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # Permet de gerer un clic sur le bouton de fermeture de la fenêtre
                     continuer = 0
@@ -389,10 +394,22 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
         #Ici, on va gerer le replacement des obtsacles quand isl disparaissent de l'ecran
             if bC > 1000 : # Si le carre disparait en bas de l'ecran, alors il se remet au dessus de l'ecran pour reapparaître ensuite
                 bC = -700
+                while countC<3:
+                  vitesseAngleC = vitesseAngleC + math.pi/500000
+                  countC= countC + 1
+
             if bT > 1000 :
                 bT = -700
+                while countT<3:
+                     vitesseAngleT = vitesseAngleT + math.pi/500000
+                     countT = countT + 1
+
             if rect[1] > 1000 :
                 rect[1] = -700
+                while countCe<3:
+                  angle5 = angle5 + math.pi/500000
+                  countCe = countCe + 1
+
             if Yline > 1000 :
                 Yline = -700
             if recttw1[1] and recttw2[1] > 1000:
@@ -417,7 +434,7 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
                 continuer=5
                 rebour=pygame.time.get_ticks()/1000
             if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
-                continuer=5
+##                continuer=5
                 rebour=pygame.time.get_ticks()/1000
         #Detection de la collision et changement de la couleur
             rectObstacle1 = pygame.Rect(a-50,bC,100,50)
