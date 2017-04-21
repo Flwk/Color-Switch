@@ -14,7 +14,9 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
         image2 = pygame.image.load("MENU 1.png").convert()
         image3 = pygame.image.load("MENU 2.png").convert()
         image4 = pygame.image.load("MENU 3.png").convert()
-        image5 = pygame.image.load("GO.png").convert()
+        image5 = pygame.image.load("fond go 1.png").convert()
+        image6 = pygame.image.load("fond go 2.png").convert()
+        img=image6
         #________________variables_______________
         FOND=0
 
@@ -321,7 +323,7 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
         # Cette fonction sera appelee depuis notre boucle infinie
         def dessiner():
             if continuer!=5 or continuer!=0 or again==1:
-                global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,mode,time,image5,rebourT
+                global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,mode,time,image5,image6,rebourT,img
                 # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
                 fenetre.fill( (0,0,0) )
                 if chgmtC==0:  #On gère la roue qui se trouve dans le rectangle
@@ -353,11 +355,20 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
                     mode=1
             if continuer==5: #Si le joueur perd, on lance la page Game Over et on aff
                 if mode==0:
-                   fenetre.blit(image5,(0,0))
-                   text= font.render("Score :"  + str(score), 40, pygame.Color(0,0,0))
-                   fenetre.blit(text,(0,0))
+
+                  if 168<coord[0]<442 and 527<coord[1]<582:
+                     img=image5
+                  else:
+                    img=image6
+                fenetre.blit(img,(0,0))
+                text= font.render("Score :"  + str(score), 40, pygame.Color(0,0,0))
+                fenetre.blit(text,(0,0))
                 if mode==1:
-                   fenetre.blit(image5,(0,0))
+                   if 168<coord[0]<442 and 527<coord[1]<582:
+                      img=image5
+                   else:
+                    img=image6
+                   fenetre.blit(img,(0,0))
                    text2= font.render("Time :"  + str(Time), 40 , pygame.Color(0,0,0))
                    fenetre.blit( text2 ,(0,0) ) #On affiche le temps du joueur
             pygame.display.flip() # Rafraichissement complet de la fenêtre avec les dernières operations de dessin
@@ -432,10 +443,8 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
            # On gere la fin de la partie, la detection  du passage de l'obstacle et le changement de couleur
             if projectile[1] > 800:
                 continuer=5
-                rebour=pygame.time.get_ticks()/1000
             if projectile[1]<800 and couleurProjectile!=fenetre.get_at(projectile):
                 continuer=5
-                rebour=pygame.time.get_ticks()/1000
         #Detection de la collision et changement de la couleur
             rectObstacle1 = pygame.Rect(a-50,bC,100,50)
             if  chgmtC==0 and rectObstacle1.collidepoint(projectile): #Si le changement est egale à 0 et que le projectile entre en collsision avec la roue ALORS la couleur est choisi aléatoirement, et le core augmente
@@ -470,11 +479,10 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
             gererClavierEtSouris()
             CLICK()
             clock.tick(60)
-            rebour1 = rebour - pygame.time.get_ticks()/1000
-            if rebour1 < -3: #La page se ferme au bout de 03 secondes
-                 continuer=1
-            else :
-               dessiner()
+            dessiner()
+            for event in pygame.event.get():
+                if event.type == MOUSEBUTTONDOWN and event.button == 1 and 168<coord[0]<442 and 527<coord[1]<582:
+                     continuer=1
         pygame.display.quit() #Ferme l'AFFICHAGE seulement
 # A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
 pygame.quit()
