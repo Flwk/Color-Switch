@@ -387,7 +387,6 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # Permet de gerer un clic sur le bouton de fermeture de la fenêtre
                     continuer = 0
-                    true=1
             # Gestion du clavier ainsi que du deplacement du projectile
             touchesPressees = pygame.key.get_pressed()
             if touchesPressees[pygame.K_SPACE] == True: # On fait monter le projectile
@@ -483,6 +482,8 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
             for event in pygame.event.get():
                 if event.type == MOUSEBUTTONDOWN and event.button == 1 and 168<coord[0]<442 and 527<coord[1]<582:
                      continuer=1
+                if event.type == pygame.QUIT: # Permet de gerer un clic sur le bouton de fermeture de la fenêtre
+                    continuer = 0
         pygame.display.quit() #Ferme l'AFFICHAGE seulement
 # A la fin, lorsque l'on sortira de la boucle, on demandera Ã  Pygame de quitter proprement
 pygame.quit()
