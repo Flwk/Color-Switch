@@ -7,3 +7,6 @@ Voici une version de Color Switch développé en python. Nous n'avons pas la pr�
 
 
 Si vous avez des sugestion ou des rapports de bugs, n'hésitez pas !
+
+
+Merci à : LH, MA et SB
