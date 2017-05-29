@@ -322,7 +322,7 @@ while continuer!=0:  #On lane une boucle infini qui va nous permettre de relance
         # Fonction en charge de dessiner tous les elements sur notre fenêtre graphique.
         # Cette fonction sera appelee depuis notre boucle infinie
         def dessiner():
-            if continuer!=5 or continuer!=0 or again==1:
+            if continuer!=5 or continuer!=0:
                 global fenetre, projectile,red,bleu,jaune,violet,couleurProjectile,couleurProjectile,Couleur1,rect,Coor1,Coor2,Coor3,r,a,b,Yline,chgmt,score,YlineMT,Time,Temps,chgmtCe,mode,time,image5,image6,rebourT,img
                 # On remplit complètement notre fenêtre avec la couleur noire: (0,0,0)
                 fenetre.fill( (0,0,0) )
